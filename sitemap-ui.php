@@ -71,6 +71,12 @@ class SMUI_Plugin
     }
 
 
+    function save_settings() {
+        $settings = json_encode( $_POST['data'] );
+        update_option( 'smui_settings', $settings );
+    }
+
+
     function get_post_types() {
         $post_types = get_post_types( [ 'public' => true ] );
         unset( $post_types['attachment'] );
@@ -111,7 +117,9 @@ class SMUI_Plugin
 
             if ( isset( $this->settings['post_ids'] ) ) {
                 add_filter( 'wp_sitemaps_posts_query_args', function( $query_args ) {
-                    $query_args['post__not_in'] = SMUI()->settings['post_ids'];
+                    $excluded_ids = preg_replace( "/\s+/", '', SMUI()->settings['post_ids'] );
+                    $excluded_ids = explode( ',', $excluded_ids );
+                    $query_args['post__not_in'] = $excluded_ids;
                     return $query_args;
                 });
             }
@@ -135,7 +143,10 @@ class SMUI_Plugin
 
             if ( isset( $this->settings['term_ids'] ) ) {
                 add_filter( 'wp_sitemaps_taxonomies_query_args', function( $query_args ) {
-                    return $query_args; // TODO
+                    $excluded_ids = preg_replace( "/\s+/", '', SMUI()->settings['term_ids'] );
+                    $excluded_ids = explode( ',', $excluded_ids );
+                    $query_args['exclude'] = $excluded_ids;
+                    return $query_args;
                 });
             }
         }

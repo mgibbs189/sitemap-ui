@@ -5,8 +5,7 @@ $post_types = SMUI()->get_post_types();
 $taxonomies = SMUI()->get_taxonomies();
 
 if ( isset( $_POST['smui_nonce'] ) && wp_verify_nonce( $_POST['smui_nonce'], 'smui_nonce' ) ) {
-    $settings = json_encode( $_POST['data'] );
-    update_option( 'smui_settings', $settings );
+    SMUI()->save_settings();
     $has_saved = true;
 }
 
