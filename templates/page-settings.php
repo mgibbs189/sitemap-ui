@@ -9,8 +9,6 @@ if ( isset( $_POST['smui_nonce'] ) && wp_verify_nonce( $_POST['smui_nonce'], 'sm
     $has_saved = true;
 }
 
-$settings = get_option( 'smui_settings', [] );
-
 ?>
 
 <link href="<?php echo SMUI_URL; ?>/assets/vendor/fSelect/fSelect.css" rel="stylesheet">
@@ -18,7 +16,7 @@ $settings = get_option( 'smui_settings', [] );
 <script src="<?php echo SMUI_URL; ?>/assets/vendor/fSelect/fSelect.js"></script>
 <script src="<?php echo SMUI_URL; ?>/assets/js/admin.js"></script>
 <script>
-var SMUI = <?php echo $settings; ?>;
+var SMUI = <?php echo get_option( 'smui_settings', '{}' ); ?>;
 </script>
 
 
@@ -41,11 +39,11 @@ var SMUI = <?php echo $settings; ?>;
             <h3>Exclude post types</h3>
             <select class="exclude-multi exclude-post-types" name="data[post_types][]" multiple="multiple">
                 <?php foreach ( $post_types as $pt ) : ?>
-                <option value="<?php echo $pt; ?>"><?php echo $pt; ?></option>
+                <option value="<?php echo esc_attr( $pt ); ?>"><?php echo esc_html( $pt ); ?></option>
                 <?php endforeach; ?>
             </select>
 
-            <p>Exclude specific posts:</p>
+            <p>Exclude specific post IDs:</p>
             <input type="text" name="data[post_ids]" class="exclude-ids exclude-post-ids" placeholder="Enter comma-separated post IDs" />
         </div>
 
@@ -53,11 +51,11 @@ var SMUI = <?php echo $settings; ?>;
             <h3>Exclude taxonomies</h3>
             <select class="exclude-multi exclude-taxonomies" name="data[taxonomies][]" multiple="multiple">
                 <?php foreach ( $taxonomies as $tax ) : ?>
-                <option value="<?php echo $tax; ?>"><?php echo $tax; ?></option>
+                <option value="<?php echo esc_attr( $tax ); ?>"><?php echo esc_html( $tax ); ?></option>
                 <?php endforeach; ?>
             </select>
 
-            <p>Exclude specific terms:</p>
+            <p>Exclude specific term IDs:</p>
             <input type="text" name="data[term_ids]" class="exclude-ids exclude-term-ids" placeholder="Enter comma-separated term IDs" />
         </div>
 

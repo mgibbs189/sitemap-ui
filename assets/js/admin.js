@@ -6,10 +6,10 @@
         $('.global-opt.opt-post-types').prop('checked', isset(SMUI.objects) && isset(SMUI.objects.post_types));
         $('.global-opt.opt-taxonomies').prop('checked', isset(SMUI.objects) && isset(SMUI.objects.taxonomies));
         $('.global-opt.opt-users').prop('checked', isset(SMUI.objects) && isset(SMUI.objects.users));
-        $('.exclude-post-types').val(SMUI.post_types);
-        $('.exclude-post-ids').val(SMUI.post_ids);
-        $('.exclude-taxonomies').val(SMUI.taxonomies);
-        $('.exclude-term-ids').val(SMUI.term_ids);
+        $('.exclude-post-types').val(isset(SMUI.post_types) ? SMUI.post_types : []);
+        $('.exclude-post-ids').val(isset(SMUI.post_ids) ? SMUI.post_ids : '');
+        $('.exclude-taxonomies').val(isset(SMUI.taxonomies) ? SMUI.taxonomies : []);
+        $('.exclude-term-ids').val(isset(SMUI.term_ids) ? SMUI.term_ids : '');
 
         // Setup fSelect
         $('.exclude-post-types').fSelect({
