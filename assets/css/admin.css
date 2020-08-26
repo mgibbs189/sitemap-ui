@@ -1,0 +1,11 @@
+.exclude-ids {
+    width: 500px;
+}
+
+.fs-wrap, .fs-dropdown {
+    width: 500px;
+}
+
+.hidden {
+    display: none;
+}
