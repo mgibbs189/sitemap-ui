@@ -6,6 +6,8 @@ This plugin provides a UI for some of the most common configuration settings.
 
 **NOTE:** some plugins (like Yoast SEO) replace core sitemaps with their own version. This plugin only works with core sitemaps.
 
+<img src="https://i.imgur.com/KkDLTvQ.png" width="528" />
+
 ### Features
 
 * Turn off WP core sitemaps entirely
@@ -14,5 +16,3 @@ This plugin provides a UI for some of the most common configuration settings.
 * Exclude taxonomy terms by ID
 * Exclude post items by ID
 * Exclude all users
-
-<img src="https://i.imgur.com/KkDLTvQ.png" width="528" />
