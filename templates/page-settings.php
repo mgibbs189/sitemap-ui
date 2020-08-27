@@ -4,7 +4,7 @@ $has_saved = false;
 $post_types = SMUI()->get_post_types();
 $taxonomies = SMUI()->get_taxonomies();
 
-if ( isset( $_POST['smui_nonce'] ) && wp_verify_nonce( $_POST['smui_nonce'], 'smui_nonce' ) ) {
+if ( SMUI()->is_valid_nonce() ) {
     SMUI()->save_settings();
     $has_saved = true;
 }

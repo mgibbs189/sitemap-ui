@@ -71,9 +71,30 @@ class SMUI_Plugin
     }
 
 
+    function sanitize( $input ) {
+        if ( is_array( $input ) ) {
+            $output = [];
+
+            foreach ( $input as $key => $val ) {
+                $output[ $key ] = $this->sanitize( $val );
+            }
+        }
+        else {
+            $output = sanitize_text_field( $input );
+        }
+
+        return $output;
+    }
+
+
+    function is_valid_nonce( $name = 'smui_nonce' ) {
+        return isset( $_POST[ $name ] ) && wp_verify_nonce( $_POST[ $name ], $name );
+    }
+
+
     function save_settings() {
-        $settings = json_encode( $_POST['data'] );
-        update_option( 'smui_settings', $settings );
+        $sanitized = $this->sanitize( $_POST['data'] );
+        update_option( 'smui_settings', json_encode( $sanitized ) );
     }
 
 
