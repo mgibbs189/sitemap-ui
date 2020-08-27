@@ -10,7 +10,7 @@ This plugin provides a UI for some of the most common configuration settings.
 
 * Turn off WP core sitemaps entirely
 * Exclude all (or specific) post types
-* Exclude all (or specific) taxonomies)
+* Exclude all (or specific) taxonomies
 * Exclude taxonomy terms by ID
 * Exclude post items by ID
 * Exclude all users
