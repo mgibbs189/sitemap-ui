@@ -11,15 +11,6 @@ if ( SMUI()->is_valid_nonce() ) {
 
 ?>
 
-<link href="<?php echo SMUI_URL; ?>/assets/vendor/fSelect/fSelect.css" rel="stylesheet">
-<link href="<?php echo SMUI_URL; ?>/assets/css/admin.css" rel="stylesheet">
-<script src="<?php echo SMUI_URL; ?>/assets/vendor/fSelect/fSelect.js"></script>
-<script src="<?php echo SMUI_URL; ?>/assets/js/admin.js"></script>
-<script>
-var SMUI = <?php echo get_option( 'smui_settings', '{}' ); ?>;
-</script>
-
-
 <div class="wrap">
     <h3>Sitemap UI <?php echo SMUI_VERSION; ?></h3>
 

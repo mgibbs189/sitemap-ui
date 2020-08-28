@@ -39,6 +39,7 @@ class SMUI_Plugin
         define( 'SMUI_BASENAME', plugin_basename( __FILE__ ) );
 
         add_action( 'init', [ $this, 'init' ] );
+        add_action( 'admin_enqueue_scripts', [ $this, 'admin_scripts' ] );
 
         // get the gears turning
         $this->apply_sitemap_rules();
@@ -63,6 +64,19 @@ class SMUI_Plugin
 
     function admin_menu() {
         add_options_page( 'Sitemap UI', 'Sitemap UI', 'manage_options', 'smui', [ $this, 'settings_page' ] );
+    }
+
+
+    function admin_scripts( $hook ) {
+        if ( 'settings_page_smui' == $hook ) {
+            $settings = get_option( 'smui_settings', '{}' );
+
+            wp_enqueue_script( 'fselect', SMUI_URL . '/assets/vendor/fSelect/fSelect.js', [ 'jquery' ], SMUI_VERSION );
+            wp_enqueue_script( 'smui', SMUI_URL . '/assets/js/admin.js', [], SMUI_VERSION );
+            wp_enqueue_style( 'fselect', SMUI_URL . '/assets/vendor/fSelect/fSelect.css', [], SMUI_VERSION );
+            wp_enqueue_style( 'smui', SMUI_URL . '/assets/css/admin.css', [], SMUI_VERSION );
+            wp_add_inline_script( 'smui', "var SMUI = $settings;" );
+        }
     }
 
 
