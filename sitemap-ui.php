@@ -2,7 +2,7 @@
 /*
 Plugin Name: Sitemap UI
 Description: Configure WP core sitemaps within the admin UI
-Version: 1.0
+Version: 1.1
 Author: FacetWP, LLC
 Author URI: https://facetwp.com/
 
@@ -33,7 +33,7 @@ class SMUI_Plugin
     function __construct() {
 
         // setup variables
-        define( 'SMUI_VERSION', '1.0' );
+        define( 'SMUI_VERSION', '1.1' );
         define( 'SMUI_DIR', dirname( __FILE__ ) );
         define( 'SMUI_URL', plugins_url( '', __FILE__ ) );
         define( 'SMUI_BASENAME', plugin_basename( __FILE__ ) );
