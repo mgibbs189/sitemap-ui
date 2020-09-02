@@ -1,4 +1,4 @@
-=== Admin Cleanup ===
+=== Sitemap UI ===
 Contributors: mgibbs189
 Tags: sitemap, sitemaps, ui, settings, configuration
 Requires at least: 5.5
@@ -36,6 +36,9 @@ NOTE: some plugins (like Yoast SEO) replace core sitemaps with their own version
 2. Browse to `Settings > Sitemap UI` to configure.
 
 == Changelog ==
+
+= 1.2 =
+* Added daily cron to ping Google of sitemap updates
 
 = 1.0 =
 * Initial release

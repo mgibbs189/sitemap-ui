@@ -2,7 +2,7 @@
 /*
 Plugin Name: Sitemap UI
 Description: Configure WP core sitemaps within the admin UI
-Version: 1.1
+Version: 1.2
 Author: FacetWP, LLC
 Author URI: https://facetwp.com/
 
@@ -33,16 +33,18 @@ class SMUI_Plugin
     function __construct() {
 
         // setup variables
-        define( 'SMUI_VERSION', '1.1' );
+        define( 'SMUI_VERSION', '1.2' );
         define( 'SMUI_DIR', dirname( __FILE__ ) );
         define( 'SMUI_URL', plugins_url( '', __FILE__ ) );
         define( 'SMUI_BASENAME', plugin_basename( __FILE__ ) );
 
         add_action( 'init', [ $this, 'init' ] );
+        add_action( 'smui_cron', [ $this, 'send_ping' ] );
         add_action( 'admin_enqueue_scripts', [ $this, 'admin_scripts' ] );
 
         // get the gears turning
         $this->apply_sitemap_rules();
+        $this->run_cron();
     }
 
 
@@ -124,9 +126,14 @@ class SMUI_Plugin
     }
 
 
-    function apply_sitemap_rules() {
+    function get_settings() {
         $settings = get_option( 'smui_settings' );
-        $this->settings = json_decode( $settings, true );
+        return json_decode( $settings, true );
+    }
+
+
+    function apply_sitemap_rules() {
+        $this->settings = $this->get_settings();
 
         // disable sitemaps
         if ( isset( $this->settings['objects']['all'] ) ) {
@@ -192,6 +199,27 @@ class SMUI_Plugin
                 $query_args['include'] = [ 0 ];
                 return $query_args;
             });
+        }
+    }
+
+
+    function run_cron() {
+        if ( ! wp_next_scheduled( 'smui_cron' ) ) {
+            wp_schedule_single_event( time() + 86400, 'smui_cron' );
+        }
+    }
+
+
+    function send_ping() {
+        $settings = $this->get_settings();
+
+        if ( ! isset( $settings['objects']['all'] ) ) {
+            $url = get_home_url() . '/wp-sitemap.xml';
+
+            $response = wp_remote_get( "http://www.google.com/ping?sitemap=$url", [
+                'blocking' => false,
+                'timeout' => 0.02
+            ] );
         }
     }
 }
